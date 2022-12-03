@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  waiting-room:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: europe-west1-docker.pkg.dev/waiting-room-cdab/containers/waiting-room:latest
+    platform: linux/amd64
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
