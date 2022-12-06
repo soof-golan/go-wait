@@ -22,17 +22,17 @@ func rootHandler(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	// Set the content type
-	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	pastThreshold := time.Now().After(thresholdTime)
 	if pastThreshold {
 		w.WriteHeader(http.StatusOK)
-		_, err := w.Write([]byte(secretUrl))
+		_, err := w.Write([]byte("{\"url\":\"" + secretUrl + "\",\"valid\":true}"))
 		if err != nil {
 			return
 		}
 	} else {
 		w.WriteHeader(http.StatusNonAuthoritativeInfo)
-		_, err := w.Write([]byte(rickRollUrl))
+		_, err := w.Write([]byte("{\"url\":\"" + rickRollUrl + "\",\"valid\":false}"))
 		if err != nil {
 			return
 		}
