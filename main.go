@@ -26,13 +26,13 @@ func rootHandler(w http.ResponseWriter, _ *http.Request) {
 	pastThreshold := time.Now().After(thresholdTime)
 	if pastThreshold {
 		w.WriteHeader(http.StatusOK)
-		_, err := w.Write([]byte("{\"url\":\"" + secretUrl + "\",\"valid\":true}"))
+		_, err := w.Write([]byte("{\"url\":\"" + secretUrl + "\",\"valid\":true,\"comeBackAfter\":\"" + thresholdTime.String() + "\"}"))
 		if err != nil {
 			return
 		}
 	} else {
 		w.WriteHeader(http.StatusNonAuthoritativeInfo)
-		_, err := w.Write([]byte("{\"url\":\"" + rickRollUrl + "\",\"valid\":false}"))
+		_, err := w.Write([]byte("{\"url\":\"" + rickRollUrl + "\",\"valid\":false,\"comeBackAfter\":\"" + thresholdTime.String() + "\"}"))
 		if err != nil {
 			return
 		}
